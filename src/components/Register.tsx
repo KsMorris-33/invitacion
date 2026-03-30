@@ -1,27 +1,46 @@
-"use server";
+// src/components/Register.tsx
+'use client'
 
-import { supabaseAdmin } from "@/app/utils/supabase";
-import { revalidatePath } from "next/cache";
+import { useActionState } from 'react'
+import { registerGuest } from '@/app/actions/register'
 
-export async function registerGuest(prevState: any, formData: FormData) {
-    const email = formData.get("email") as string;
-    const nombre = formData.get("nombre") as string;
+export default function RegisterForm() {
+    // state: el mensaje que devuelve el servidor
+    // formAction: la función que vinculamos al formulario
+    // isPending: true mientras se guarda en la base de datos
+    const [state, formAction, isPending] = useActionState(registerGuest, null)
 
-    if (!email || !nombre) {
-        return { error: "Todos los campos son obligatorios." };
-    }
+    return (
+        <div className="p-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl max-w-md mx-auto">
+            <h2 className="text-2xl font-bold text-white mb-4">Registro para la Ubicación Secreta</h2>
 
-    const { error } = await supabaseAdmin
-        .from("invitados")
-        .insert([{ email, nombre }]);
+            <form action={formAction} className="space-y-4">
+                <input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="tu@correo.com"
+                    className="w-full p-3 rounded-lg bg-black/50 border border-purple-500/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                />
 
-    if (error) {
-        if (error.code === '23505') { // Error de duplicado en PostgreSQL
-            return { error: "Este correo ya está en la lista de la fiesta." };
-        }
-        return { error: "Hubo un fallo en el sistema. Intenta de nuevo." };
-    }
+                <button
+                    type="submit"
+                    disabled={isPending}
+                    className={`w-full p-3 rounded-lg font-bold transition-all ${isPending
+                            ? 'bg-gray-600 cursor-not-allowed'
+                            : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:scale-105 active:scale-95 text-white shadow-lg shadow-purple-500/20'
+                        }`}
+                >
+                    {isPending ? 'Procesando...' : 'Obtener Invitación'}
+                </button>
 
-    revalidatePath("/"); // Limpia el cache para mostrar cambios si es necesario
-    return { success: true, message: "¡Registro exitoso! Prepárate para el humo." };
+                {/* Mensajes de feedback dinámicos */}
+                {state?.message && (
+                    <p className={`mt-4 text-center text-sm font-medium ${state.success ? 'text-green-400' : 'text-red-400'}`}>
+                        {state.message}
+                    </p>
+                )}
+            </form>
+        </div>
+    )
 }

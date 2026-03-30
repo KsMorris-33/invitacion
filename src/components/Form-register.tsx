@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { registerGuest } from "@/components/Register";
+import { registerGuest } from "@/app/actions/register";
 
 export default function RegisterForm() {
     const [state, formAction, isPending] = useActionState(registerGuest, null);
@@ -37,7 +37,7 @@ export default function RegisterForm() {
                 <p className="text-red-400 text-sm animate-pulse">{state.error}</p>
             )}
             {state?.success && (
-                <p className="text-green-400 text-sm">{state.message}</p>
+                <p className="text-green-400 text-sm">{state?.message}</p>
             )}
         </form>
     );

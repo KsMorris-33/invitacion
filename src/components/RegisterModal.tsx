@@ -2,7 +2,7 @@
 
 import { useState, useActionState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { registerGuest } from "@/components/Register";
+import { registerGuest } from "@/app/actions/register";
 import ConfirmButton from "./ConfirmButton";
 
 export default function RegisterModal() {
