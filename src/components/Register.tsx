@@ -2,7 +2,7 @@
 'use client'
 
 import { useActionState } from 'react'
-import { registerGuest } from '@/app/actions/register'
+import { registerGuest } from '@/actions/Register'
 
 export default function RegisterForm() {
     // state: el mensaje que devuelve el servidor
@@ -27,8 +27,8 @@ export default function RegisterForm() {
                     type="submit"
                     disabled={isPending}
                     className={`w-full p-3 rounded-lg font-bold transition-all ${isPending
-                            ? 'bg-gray-600 cursor-not-allowed'
-                            : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:scale-105 active:scale-95 text-white shadow-lg shadow-purple-500/20'
+                        ? 'bg-gray-600 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-purple-600 to-blue-600 hover:scale-105 active:scale-95 text-white shadow-lg shadow-purple-500/20'
                         }`}
                 >
                     {isPending ? 'Procesando...' : 'Obtener Invitación'}
