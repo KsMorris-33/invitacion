@@ -1,7 +1,7 @@
 // src/app/actions/register.ts
 'use server'
 
-import { prisma } from '@/lib/prisma'
+import { prisma } from '../../lib/prisma'
 
 export type RegisterState = {
     success?: boolean
