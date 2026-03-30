@@ -24,7 +24,7 @@ export async function registerGuest(
         await prisma.asistentes.create({
             data: { email, nombre }
         })
-        return { success: true, message: '¡Registro exitoso! Vuelve cuando el contador termine para saber la locación.' }
+        return { success: true, message: '¡Registro exitoso! Vuelve vuando el contador termine para saber la locación.' }
     } catch (error: any) {
         console.error('Prisma error:', error)
         // Duplicate email (unique constraint)
