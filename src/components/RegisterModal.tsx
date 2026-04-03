@@ -1,13 +1,25 @@
 "use client";
 
-import { useState, useActionState } from "react";
+import { useState, useEffect, useActionState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { registerGuest } from "../actions/Register";
 import ConfirmButton from "./ConfirmButton";
 
-export default function RegisterModal() {
+export default function RegisterModal({ targetDate }: { targetDate?: string }) {
     const [isOpen, setIsOpen] = useState(false);
     const [state, formAction, isPending] = useActionState(registerGuest, null);
+    const [isExpired, setIsExpired] = useState(false);
+
+    useEffect(() => {
+        if (!targetDate) return;
+        const checkTime = () => {
+            const difference = +new Date(targetDate) - +new Date();
+            setIsExpired(difference <= 0);
+        };
+        const timer = setInterval(checkTime, 1000);
+        checkTime();
+        return () => clearInterval(timer);
+    }, [targetDate]);
 
     // Cerrar el modal automáticamente tras un registro exitoso (opcional)
     if (state?.success && isOpen) {
@@ -16,7 +28,7 @@ export default function RegisterModal() {
 
     return (
         <>
-            <ConfirmButton onClick={() => setIsOpen(true)} />
+            <ConfirmButton onClick={() => setIsOpen(true)} disabled={isExpired} />
 
             <AnimatePresence>
                 {isOpen && (

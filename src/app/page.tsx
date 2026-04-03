@@ -42,7 +42,7 @@ export default function Home() {
 
       </div>
       <div className="bottom-20 fixed z-10 flex flex-col md:flex-row gap-6 w-full max-w-2xl justify-center items-center">
-        <RegisterModal />
+        <RegisterModal targetDate={FIESTA_DATE} />
         <LocationButton targetDate={FIESTA_DATE} />
       </div>
 
