@@ -1,26 +1,19 @@
-// app/location/page.tsx
-import { createClient } from '@/app/utils/supabase';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import LocationView from './LocationView';
 
 export default async function LocationPage() {
-    const supabase = await createClient();
+    const cookieStore = await cookies();
+    const hasAccess = cookieStore.get('locacion_access');
 
-    // 1. Verificar sesión del usuario
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) redirect('/login');
+    if (!hasAccess) redirect('/');
 
-    // 2. Verificar tiempo en el servidor
     const targetDate = new Date('2026-04-01T00:00:00Z');
     const now = new Date();
+    if (now < targetDate) redirect('/?error=too-early');
 
-    if (now < targetDate) {
-        redirect('/countdown?error=too-early');
-    }
+    const lat = "4.575368";
+    const lng = "-74.214147";
 
-    return (
-        <main>
-            <h1>¡Llegaste a la ubicación secreta!</h1>
-            {/* El mapa solo se renderiza si las condiciones anteriores pasaron */}
-        </main>
-    );
+    return <LocationView lat={lat} lng={lng} />;
 }

@@ -8,7 +8,8 @@ import LocationButton from '@/components/LocationButton';
 
 
 
-const FIESTA_DATE = "2026-04-03T18:00:00";
+//const FIESTA_DATE = "2026-04-03T18:00:00";
+const FIESTA_DATE = "2026-04-03T12:30:00";
 
 export default function Home() {
   return (
