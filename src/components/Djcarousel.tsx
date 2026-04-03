@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Lista de tus imágenes (puedes automatizar esto si tienes muchas)
 const DJ_IMAGES = [
-    "/images/djs/dj1.png",
-    "/images/djs/dj2.png",
-    "/images/djs/dj3.png",
+    "/images/djs/DJ1.png",
+    "/images/djs/DJ2.png",
+    "/images/djs/DJ3.png",
 ];
 
 export default function DjCarousel() {
