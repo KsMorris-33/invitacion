@@ -119,15 +119,22 @@ void main() {
   // suavizado
   smoke = smoothstep(0.4, 0.85, smoke);
 
-  // 🎨 COLOR (red bug fix)
-  vec3 bg = vec3(0.015, 0.02, 0.035);
-  vec3 smokeCol = vec3(0.55, 0.65, 0.85);
+  // 🎨 COLOR: Rojo Sangre (Blood Red)
+  vec3 bg = vec3(0.018, 0.002, 0.004); // Fondo negro con sutil matiz borgoña profundo
+
+  // Matices de sangre: carmesí oscuro, sangre arterial y reflejos escarlata
+  vec3 bloodDark = vec3(0.40, 0.015, 0.025);
+  vec3 bloodMid = vec3(0.78, 0.04, 0.06);
+  vec3 bloodLight = vec3(0.98, 0.14, 0.08);
+
+  // Volumen y gradiente según la densidad del humo
+  vec3 smokeCol = mix(bloodDark, bloodMid, smoothstep(0.15, 0.7, smoke));
+  smokeCol = mix(smokeCol, bloodLight, smoothstep(0.7, 1.0, smoke) * 0.4);
 
   vec3 color = mix(bg, smokeCol, smoke);
 
-  // 🔥 CORRECCIÓN PRO
-  color.r *= 0.75;          // elimina rojo
-  color = pow(color, vec3(0.9)); // gamma cool
+  // Realce de tono y contraste
+  color = pow(color, vec3(0.92));
 
   gl_FragColor = vec4(color, 1.0);
 }

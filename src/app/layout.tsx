@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fiesta Santa",
-  description: "event-app v1.0.0 by ksm",
+  title: "Dulce o Truco",
+  description: "event-app v2.0.0 by ksm",
 };
 
 export default function RootLayout({
