@@ -7,7 +7,7 @@ import { Nosifer } from 'next/font/google';
 
 const nosifer = Nosifer({ weight: '400', subsets: ['latin'] });
 
-const FIESTA_DATE = "2026-10-31T18:00:00";
+const FIESTA_DATE = "2026-10-31T19:00:00";
 
 export default function Home() {
   return (
