@@ -14,9 +14,14 @@ export async function registerGuest(
 ): Promise<RegisterState> {
     const email = formData.get('email') as string
     const nombre = formData.get('nombre') as string
+    const terminos = formData.get('terminos')
 
     if (!email || !nombre) {
         return { error: 'Todos los campos son obligatorios.' }
+    }
+
+    if (!terminos) {
+        return { error: 'Debes aceptar los términos y condiciones.' }
     }
 
     try {
