@@ -22,11 +22,18 @@ export default function InteractiveMap({ lat, lng }: InteractiveMapProps) {
         });
     }, []);
 
-    const cyberpunkIcon = L.divIcon({
+    const bloodRedIcon = L.divIcon({
         className: 'custom-icon',
-        html: `<div style="width: 16px; height: 16px; background-color: #d946ef; border-radius: 50%; box-shadow: 0 0 15px #d946ef; border: 2px solid white; animation: pulse 2s infinite;"></div>`,
-        iconSize: [16, 16],
-        iconAnchor: [8, 8]
+        html: `<div style="
+            width: 18px; height: 18px;
+            background: radial-gradient(circle at 40% 35%, #ff4444, #cc0000);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(220,38,38,0.9), 0 0 24px rgba(220,38,38,0.5);
+            border: 2px solid rgba(255,255,255,0.8);
+            animation: pulse 1.8s ease-in-out infinite;
+        "></div>`,
+        iconSize: [18, 18],
+        iconAnchor: [9, 9]
     });
 
     const parsedLat = parseFloat(lat);
@@ -41,14 +48,15 @@ export default function InteractiveMap({ lat, lng }: InteractiveMapProps) {
             zoomControl={false}
             attributionControl={false}
         >
-            {/* CartoDB Dark Matter Base Map */}
+            {/* CartoDB Dark Matter Base Map (autenticado con API key) */}
             <TileLayer
-                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                url={`https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=${process.env.NEXT_PUBLIC_CARTO_KEY}`}
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                maxZoom={19}
             />
             
             {/* Interactive Neon Marker */}
-            <Marker position={[parsedLat, parsedLng]} icon={cyberpunkIcon} />
+            <Marker position={[parsedLat, parsedLng]} icon={bloodRedIcon} />
 
             <style jsx global>{`
                 .leaflet-container {

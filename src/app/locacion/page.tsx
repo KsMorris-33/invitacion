@@ -12,8 +12,8 @@ export default async function LocationPage() {
     const now = new Date();
     if (now < targetDate) redirect('/?error=too-early');
 
-    const lat = "4.575368";
-    const lng = "-74.214147";
+    const lat = "4.577532";
+    const lng = "-74.211724";
 
     return <LocationView lat={lat} lng={lng} />;
 }
